@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 1; /* Đặt opacity ban đầu */
+      }
+
+      #video-content {
+        background-color: rgba(255, 255, 255, 0.8); /* Màu nền với độ mờ */
+        color: black;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        padding: 20px;
+        max-width: 80%;
+        border: 2px solid white; /* Định dạng viền */
+        border-radius: 10px;
+        font-size: 40px;
+        display: none;
+      }
+
+      .btn-start {
+        position: fixed;
+        /* bottom: 20px; */
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        padding: 10px 20px;
+        background-color: #c63840;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 40px;
+        border: 2px solid #c63840; /* Định dạng viền */
+        border-radius: 10px;
+      }
+
+      /* Media query cho các thiết bị có độ rộng màn hình nhỏ hơn hoặc bằng 600px */
+      @media only screen and (max-width: 600px) {
+        body {
+          /* background-color: #c63840; */
+          background-image: url('image/1-audit-hinh-nen-tet-didongviet-576x1024.jpg');
+        }
+        #video-background {
+          object-fit: contain;
+        }
+        #video-content {
+          background-color: rgba(255, 255, 255, 0.8); /* Màu nền với độ mờ */
+          color: black;
+          text-align: center;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 9999;
+          padding: 20px;
+          max-width: 80%;
+          border: 2px solid white; /* Định dạng viền */
+          border-radius: 10px;
+          font-size: 18px;
+          display: none;
+        }
+        .btn-start {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video-background">
+      <source
+        src="image/y2mate.com - Chúc mừng năm mới 2024  Mẫu background tết 2024 Rồng Việt Nam  Rồng Nhà Lý Miễn Phí đẹp_1080p.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
+    <div id="video-content"></div>
+    <button class="btn-start" onclick="startVideo()">Nhận lời chúc đầu năm nào</button>
+
+    <script>
+      const video = document.getElementById('video-background');
+      const videoContent = document.getElementById('video-content');
+      const message =
+        'Chúc mừng năm mới 2024! Mong rằng năm mới sẽ mang đến cho bạn niềm vui, sức khỏe, và nhiều thành công trong mọi lĩnh vực của cuộc sống. Hãy bước vào năm mới với tinh thần lạc quan và đầy năng lượng, để bạn có thể thực hiện được những ước mơ và mục tiêu của mình. Chúc bạn và gia đình một năm mới thật hạnh phúc và thịnh vượng! #T';
+      let currentIndex = 0;
+
+      function startVideo() {
+        video.play();
+        document.querySelector('.btn-start').style.display = 'none';
+        displayMessage();
+      }
+
+      function displayMessage() {
+        if (currentIndex < message.length) {
+          videoContent.style.display = 'block'; // Hiển thị video content
+          videoContent.innerHTML += message[currentIndex];
+          currentIndex++;
+          setTimeout(displayMessage, 50); // Tạm dừng 0.1 giây trước khi hiển thị ký tự tiếp theo
+        }
+      }
+
+      // Xác định khi video kết thúc phát lần đầu tiên
+      function videoEnded() {
+        // Đặt opacity của video và chữ
+        // videoContent.style.opacity = '1'; // Hiển thị chữ với opacity đầy đủ
+
+        // Loại bỏ sự kiện lắng nghe
+        video.removeEventListener('ended', videoEnded);
+      }
+
+      video.addEventListener('ended', videoEnded);
+    </script>
+  </body>
+</html>
